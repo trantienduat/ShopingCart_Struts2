@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//Apache Struts//XWork Validator 1.0.3//EN"
+  		"http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<validators>
+    <field name="mobileId">
+        <field-validator type="requiredstring">
+            <param name="trim">true</param>
+            <message>Mobile Id is required!!!</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="minLength">1</param>
+            <param name="maxLength">10</param>
+            <message>Mobile ID is required with 1 to 10 chars</message>
+        </field-validator>
+    </field>
+    
+    <field name="description">
+        <field-validator type="requiredstring">
+            <param name="trim">true</param>
+            <message>Description is required!!!</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="minLength">1</param>
+            <param name="maxLength">250</param>
+            <message>Description is required with 1 to 250 chars</message>
+        </field-validator>
+    </field>
+    
+    <field name="price">
+        <field-validator type="double">
+            <param name="minInclusive">0.0</param>
+            <message>Price is required with bigger or equal than 0!!</message>
+        </field-validator>
+    </field>
+    
+    <field name="mobileName">
+        <field-validator type="requiredstring">
+            <param name="trim">true</param>
+            <message>Mobile Name is required!!!</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="minLength">1</param>
+            <param name="maxLength">20</param>
+            <message>Mobile Name is required with 1 to 20 chars</message>
+        </field-validator>
+    </field>
+    
+    <field name="quantity">
+        <field-validator type="int">
+            <param name="min">0</param>
+            <message>Quantity is required with bigger or equal than 0!!</message>
+        </field-validator>
+    </field>
+</validators>

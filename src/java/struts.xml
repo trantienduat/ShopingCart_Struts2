@@ -1,0 +1,96 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+        <action name="">
+            <result>login.jsp</result>
+        </action>
+        <action name="try">
+            <result>login.jsp</result>
+        </action>
+        <action name="login" class="duattt.ws2.LoginAction">
+            <exception-mapping exception="java.lang.NumberFormatException" result="input"/>
+            <result name="input">login.jsp</result>
+            <result name="staff" type="redirect">staffSearch.jsp</result>
+            <result name="user" type="redirect">userSearch.jsp</result>
+            <result name="fail" type="redirect">invalid.html</result>
+        </action>
+        
+        <!--Staff-->
+        <action name="staffSearch" class="duattt.ws2.staff.SearchMobileAction">
+            <interceptor-ref name="basicStack"/>
+            <interceptor-ref name="chain"/>
+            <result name="success">staffSearch.jsp</result>
+        </action>
+        
+        <action name="deleteMobile" class="duattt.ws2.staff.DeleteMobileAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">staffSearch</param>
+                <param name="searchValue">${searchValue}</param>
+                <param name="searchType">${searchType}</param>
+                <param name="status">${status}</param>
+            </result>
+            <result name="fail" type="redirect">errorPage.html</result>
+        </action>
+        
+        <action name="updateMobile" class="duattt.ws2.staff.UpdateMobileAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">staffSearch</param>
+                <param name="searchValue">${searchValue}</param>
+                <param name="searchType">${searchType}</param>
+                <param name="status">${status}</param>
+            </result>
+            <result name="input" type="chain">
+                <param name="actionName">staffSearch</param>
+                <param name="searchValue">${searchValue}</param>
+                <param name="searchType">${searchType}</param>
+            </result>
+            <result name="fail" type="redirect">errorPage.html</result>
+        </action>
+        
+        <action name="insertMobile" class="duattt.ws2.staff.InsertMobileAction">
+            <exception-mapping exception="java.sql.SQLException" result="fail"/>
+            <result name="input">insertMobile.jsp</result>
+            <result name="success">insertMobile.jsp</result>
+            <result name="fail">insertMobile.jsp</result>
+        </action>
+        
+        <!--User -->
+        <action name="userSearch" class="duattt.ws2.user.SearchMobileAction">
+            <result name="input">userSearch.jsp</result>
+            <result name="success">userSearch.jsp</result>
+        </action>
+        
+        <action name="addToCart" class="duattt.ws2.user.AddToCartAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">userSearch</param>
+                <param name="minPrice">${minPrice}</param>
+                <param name="maxPrice">${maxPrice}</param>
+            </result>
+        </action>
+        
+        <action name="viewCart" class="duattt.ws2.user.ViewCartAction">
+            <result name="success">viewCart.jsp</result>
+        </action>
+        
+        <action name="removeFromCart" class="duattt.ws2.user.RemoveFromCartAction">
+            <result name="success" type="redirectAction">viewCart</result>
+        </action>
+        
+        <action name="order" class="duattt.ws2.user.OrderAction">
+            <result name="success">viewCart.jsp</result>
+        </action>
+        
+        <action name="logout" class="duattt.ws2.LogoutAction">
+            <result name="success" type="redirect">login.jsp</result>
+        </action>
+        
+        
+        
+        
+        
+    </package>
+</struts>
